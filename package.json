@@ -1,0 +1,29 @@
+{
+  "name": "web-automation",
+  "version": "1.0.0",
+  "description": "Automação Web: 3 janelas (Dashboard, Perfil, Staging) com login automático e organização vertical",
+  "main": "scripts/1-playwright-automation.js",
+  "scripts": {
+    "automation": "node ./scripts/1-playwright-automation.js",
+    "organize": "powershell -ExecutionPolicy Bypass -File ./scripts/2-organize-windows.ps1",
+    "run-all": ".\\run-automation.bat",
+    "test-config": "node ./scripts/test-config.js",
+    "setup": "npm install && powershell -Command \"Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force\""
+  },
+  "keywords": [
+    "automation",
+    "playwright",
+    "chrome",
+    "windows",
+    "web"
+  ],
+  "author": "João Matera",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "playwright": "^1.40.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
