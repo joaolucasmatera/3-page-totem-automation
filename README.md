@@ -1,111 +1,181 @@
-# 🚀 Web Automation
+# 3-Page Totem Automation
 
-Sistema de automação completa para aplicação web com 3 janelas organizadas verticalmente.
+![Node.js](https://img.shields.io/badge/node.js-16%2B-brightgreen)
+![Platform](https://img.shields.io/badge/platform-windows-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![PowerShell](https://img.shields.io/badge/powershell-5.1%2B-blue)
 
-## 📋 Funcionalidades
+Professional web automation solution for managing multiple browser instances with automated login and optimized window organization.
 
-- ✅ **3 Janelas Simultâneas:** Dashboard, Perfil e Staging
-- ✅ **Login Automático:** Credenciais específicas por ambiente
-- ✅ **Organização Vertical:** Layout empilhado otimizado
-- ✅ **Múltiplos Ambientes:** Production e Staging
-- ✅ **Execução com 1 Clique**
+## Overview
 
-## 🎯 Layout Final
+This automation system orchestrates three synchronized browser windows in a vertical totem layout, providing automated authentication and session management across production and staging environments.
+
+## Features
+
+### Core Capabilities
+- **Multi-Instance Management**: Concurrent handling of three browser windows
+- **Automated Authentication**: Environment-specific credential management
+- **Window Organization**: Intelligent vertical layout optimization
+- **Cross-Environment Support**: Production and staging environment isolation
+- **One-Click Execution**: Streamlined deployment process
+
+### Technical Stack
+- **Browser Automation**: Playwright with Chromium engine
+- **Window Management**: PowerShell-based positioning system
+- **Configuration Management**: Environment variables with dotenv
+- **Cross-Platform Compatibility**: Windows-optimized with PowerShell integration
+
+## Architecture
 
 ```
 ┌─────────────────────────────────────┐
-│ TOPO    - Dashboard                 │
+│ TOP TIER    - Production Dashboard  │
 ├─────────────────────────────────────┤  
-│ MEIO    - Perfil                    │
+│ MIDDLE TIER - User Profile          │
 ├─────────────────────────────────────┤
-│ BAIXO   - Staging                   │
+│ BOTTOM TIER - Staging Environment   │
 └─────────────────────────────────────┘
 ```
 
-## 🚀 Como Usar
+## Quick Start
 
-### Execução Automática (Recomendado)
-```bash
-.\run-automation.bat
-```
+### Prerequisites
+- Node.js 16.0.0 or higher
+- Windows 10/11 operating system
+- PowerShell 5.1 or higher
+- Git (for version control)
 
-### Scripts NPM Disponíveis
-```bash
-npm run automation    # Executar automação Playwright
-npm run organize      # Organizar janelas verticalmente
-npm run run-all       # Executar tudo automaticamente
-npm run test-config   # Testar configuração de variáveis
-npm run setup         # Configurar ambiente inicial
-```
+### Installation
 
-## 🔐 Configuração de Credenciais
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/joaolucasmatera/3-page-totem-automation.git
+   cd 3-page-totem-automation
+   ```
 
-Este projeto usa variáveis de ambiente para manter as credenciais seguras:
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-1. **Copie o arquivo de exemplo:**
+3. **Configure environment:**
    ```bash
    copy .env.example .env
    ```
 
-2. **Configure suas credenciais no arquivo `.env`:**
-   - `PRODUCTION_EMAIL` e `PRODUCTION_PASSWORD` - Para Dashboard e Perfil
-   - `STAGING_EMAIL` e `STAGING_PASSWORD` - Para ambiente Staging
-   - URLs configuráveis para cada ambiente
+### Configuration
 
-3. **⚠️ IMPORTANTE:** O arquivo `.env` nunca deve ser commitado no Git!
+Create and configure your `.env` file with the following variables:
 
-## ⚙️ Requisitos
+```env
+# Production Environment Credentials
+PRODUCTION_EMAIL=your-production-email@domain.com
+PRODUCTION_PASSWORD=your-production-password
 
-- Node.js 16+
-- Windows 10/11
-- PowerShell 5.1+
-- Chrome/Chromium
+# Staging Environment Credentials  
+STAGING_EMAIL=your-staging-email@domain.com
+STAGING_PASSWORD=your-staging-password
 
-## 🔧 Instalação
+# Application URLs
+DASHBOARD_URL=https://app.yourdomain.com/dashboard
+PROFILE_URL=https://app.yourdomain.com/profile/?user_id=YOUR-USER-ID
+STAGING_URL=https://staging.yourdomain.com/?page=0&role=reviewer&rowsPerPage=10
 
+# Authentication Endpoints
+PRODUCTION_LOGIN_URL=https://app.yourdomain.com/
+STAGING_LOGIN_URL=https://staging.yourdomain.com/
+
+# Window Configuration
+WINDOW_WIDTH=800
+WINDOW_HEIGHT=360
+```
+
+## Usage
+
+### Automated Execution (Recommended)
 ```bash
-# 1. Clonar/baixar projeto
-cd web-automation
-
-# 2. Instalar dependências
-npm install
-
-# 3. Configurar credenciais
-copy .env.example .env
-# Edite o arquivo .env com suas credenciais
-
-# 4. Executar automação
 .\run-automation.bat
 ```
 
-## 📁 Estrutura do Projeto
+### Available NPM Scripts
+```bash
+npm run automation    # Execute Playwright automation sequence
+npm run organize      # Apply vertical window organization
+npm run run-all       # Execute complete automation pipeline
+npm run test-config   # Validate environment configuration
+npm run setup         # Initialize development environment
+```
+
+## Security Considerations
+
+- **Credential Management**: All sensitive data stored in environment variables
+- **Version Control**: `.env` files excluded from repository
+- **Access Control**: Environment-specific authentication tokens
+- **Data Protection**: No hardcoded credentials in source code
+
+## Project Structure
 
 ```
-web-automation/
+3-page-totem-automation/
 ├── scripts/
-│   ├── 1-playwright-automation.js    # Automação principal
-│   ├── 2-organize-windows.ps1        # Organizador de janelas
-│   └── test-config.js                # Teste de configuração
-├── run-automation.bat                # Execução completa
-├── .env.example                      # Exemplo de configuração
-├── .gitignore                        # Arquivos ignorados
-├── package.json                      # Configurações NPM
-└── README.md                         # Esta documentação
+│   ├── 1-playwright-automation.js    # Browser automation logic
+│   ├── 2-organize-windows.ps1        # Window positioning system
+│   └── test-config.js                # Configuration validator
+├── .env.example                      # Environment template
+├── .gitignore                        # Version control exclusions
+├── package.json                      # Project dependencies
+├── run-automation.bat               # Main execution script
+└── README.md                        # Documentation
 ```
 
-## 📝 Observações
+## Development
 
-- O Playwright continuará rodando em background para manter as janelas abertas
-- Para fechar completamente: `taskkill /f /im node.exe`
-- As janelas são automaticamente desmaxizadas e posicionadas
-- Sistema aguarda todas as 3 janelas ficarem prontas antes de organizar
+### Testing Configuration
+Validate your environment setup:
+```bash
+npm run test-config
+```
 
-## 🔒 Segurança
+### Manual Component Testing
+Test individual components:
+```bash
+# Test browser automation only
+npm run automation
 
-- ✅ Credenciais isoladas em arquivo `.env`
-- ✅ Arquivo `.env` está no `.gitignore`
-- ✅ Exemplo público em `.env.example`
-- ⚠️ **NUNCA commite o arquivo `.env` no Git!**
+# Test window organization only  
+npm run organize
+```
 
----
-✨ **Execução perfeita com 1 clique!** 🚀
+### Troubleshooting
+
+**Common Issues:**
+
+- **Browser Installation**: Run `npx playwright install` if browsers are missing
+- **PowerShell Policy**: Execute `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` 
+- **Environment Variables**: Verify `.env` file configuration with `npm run test-config`
+- **Port Conflicts**: Ensure no other instances are running
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+**João Lucas Matera**
+- GitHub: [@joaolucasmatera](https://github.com/joaolucasmatera)
+- Email: joao.matera@gmail.com
+
+## Acknowledgments
+
+- Built with [Playwright](https://playwright.dev/) for reliable browser automation
+- PowerShell integration for Windows-native window management
+- Node.js ecosystem for cross-platform compatibility
