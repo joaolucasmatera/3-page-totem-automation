@@ -10,6 +10,10 @@ public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int 
 public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 [DllImport("user32.dll")]
 public static extern bool IsZoomed(IntPtr hWnd);
+[DllImport("user32.dll")]
+public static extern bool BringWindowToTop(IntPtr hWnd);
+[DllImport("user32.dll")]
+public static extern bool SetForegroundWindow(IntPtr hWnd);
 '@
 
 Add-Type -MemberDefinition $signature -Name Win32API -Namespace Win32
@@ -92,8 +96,14 @@ for ($i = 0; $i -lt [Math]::Min($orderedWindows.Count, 3); $i++) {
         0x0040
     )
     
+    # Trazer janela para frente
     if ($moveResult) {
-        Write-Host "  SUCESSO! Janela $windowNum posicionada!" -ForegroundColor Green
+        Write-Host "  Trazendo janela para frente..." -ForegroundColor Yellow
+        $bringToTopResult = [Win32.Win32API]::BringWindowToTop($window.MainWindowHandle)
+        $setForegroundResult = [Win32.Win32API]::SetForegroundWindow($window.MainWindowHandle)
+        
+        Write-Host "  SUCESSO! Janela $windowNum posicionada e trazida para frente!" -ForegroundColor Green
+        Write-Host "    BringToTop: $bringToTopResult, SetForeground: $setForegroundResult" -ForegroundColor White
     } else {
         Write-Host "  ERRO ao posicionar janela $windowNum!" -ForegroundColor Red
     }
@@ -104,8 +114,23 @@ for ($i = 0; $i -lt [Math]::Min($orderedWindows.Count, 3); $i++) {
 Write-Host ""
 Write-Host "ORGANIZACAO FINALIZADA!" -ForegroundColor Green
 Write-Host "===============================" -ForegroundColor Green
+
+# Etapa final: garantir que todas as janelas estejam visíveis
+Write-Host ""
+Write-Host "Garantindo que todas as janelas estejam visíveis..." -ForegroundColor Cyan
+for ($i = 0; $i -lt [Math]::Min($orderedWindows.Count, 3); $i++) {
+    $window = $orderedWindows[$i]
+    $windowNum = $i + 1
+    
+    Write-Host "  Trazendo janela $windowNum para frente: $($window.MainWindowTitle)" -ForegroundColor Yellow
+    [Win32.Win32API]::BringWindowToTop($window.MainWindowHandle)
+    [Win32.Win32API]::SetForegroundWindow($window.MainWindowHandle)
+    Start-Sleep -Milliseconds 150
+}
+
+Write-Host ""
 Write-Host "Layout aplicado:"
 Write-Host "  TOPO    - Dashboard"
 Write-Host "  MEIO    - Perfil"
 Write-Host "  BAIXO   - Staging"
-Write-Host "Todas as janelas organizadas verticalmente!" -ForegroundColor Green
+Write-Host "Todas as janelas organizadas verticalmente e visíveis!" -ForegroundColor Green
